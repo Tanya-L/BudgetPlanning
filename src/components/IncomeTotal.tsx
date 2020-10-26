@@ -7,8 +7,8 @@ interface IncomesProps {
 function IncomeTotal({totalIncome}: IncomesProps) {
     return (
         <header>
-            <h1>Income Tracker</h1>
-            <div className="total-income">${totalIncome}</div>
+            <h1>Income </h1>
+            <div className="total">${totalIncome}</div>
         </header>
     );
 }

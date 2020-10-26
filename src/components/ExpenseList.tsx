@@ -13,7 +13,7 @@ function ExpenseList({allExpenseItems, deleteExpense}: ExpenseListProps) {
     }
 
     return (
-        <div className="expense-list">
+        <div className="list">
             {
                 allExpenseItems
                     .sort(sortByDate)

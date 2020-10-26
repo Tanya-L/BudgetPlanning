@@ -17,7 +17,7 @@ function ExpenseItem({expense, index, deleteExpense}: ExpenseItemsProps) {
     }
 
     return (
-        <div className="expense-item">
+        <div className="item">
             <button className="remove-item" onClick={() => onRemoveClick(index)}>x</button>
             <div className="desc">{expense.description}</div>
             <div className="price">${expense.price}</div>

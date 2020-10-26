@@ -1,4 +1,4 @@
-import React, {FormEvent, useRef, useState} from 'react';
+import React, {FormEvent, useRef} from 'react';
 import {MoneyItem} from "../MoneyItem";
 
 interface IncomeFormProps {
@@ -31,13 +31,13 @@ function IncomeForm({addIncome}: IncomeFormProps) {
     }
 
     return (
-        <form className="income-form" onSubmit={AddIncome}>
+        <form className="form" onSubmit={AddIncome}>
             <div className="form-inner">
-                <input type="text" name="desc" id="desc" placeholder="Income Description..."
+                <input type="text" name="desc" id="desc" placeholder="Income Description"
                        ref={descInputbox}/>
-                <input type="number" name="price" id="price" placeholder="Price..."
+                <input type="number" name="price" id="price" placeholder="Price"
                        ref={priceInputbox}/>
-                <input type="date" name="date" id="date" placeholder="Income date..."
+                <input type="date" name="date" id="date" placeholder="Income date"
                        ref={dateInputbox}/>
 
                 <input type="submit" value="Add Income"/>

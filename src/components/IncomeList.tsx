@@ -1,5 +1,5 @@
 import React from 'react';
-import IncomeItem from './IncomeItem';
+import IncomeItem from "./IncomeItem";
 import {MoneyItem} from "../MoneyItem";
 
 interface IncomeListProps {
@@ -13,7 +13,7 @@ function IncomeList({allIncomeItems, deleteIncome}: IncomeListProps) {
     }
 
     return (
-        <div className="income-list">
+        <div className="list">
             {
                 allIncomeItems
                     .sort(sortByDate)

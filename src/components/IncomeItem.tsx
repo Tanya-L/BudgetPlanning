@@ -17,7 +17,7 @@ function IncomeItem({income, index, deleteIncome}: IncomeItemsProps) {
     }
 
     return (
-        <div className="income-item">
+        <div className="item">
             <button className="remove-item" onClick={() => onRemoveClick(index)}>x</button>
             <div className="desc">{income.description}</div>
             <div className="price">${income.price}</div>

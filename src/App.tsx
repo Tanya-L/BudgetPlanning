@@ -7,6 +7,7 @@ import ExpenseTotal from "./components/ExpenseTotal";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import {MoneyItem} from "./MoneyItem";
+import BudgetTotal from "./components/BudgetTotal";
 
 function App() {
 
@@ -17,20 +18,10 @@ function App() {
     const [totalBudget, setTotalBudget] = useState<number>(0);
 
     useEffect(() => {
-        // let temp: number = 0;
-        // for (let i = 0; i < allIncomeItems.length; i++) {
-        //     temp += allIncomeItems[i].price;
-        // }
-        // setTotalIncome(temp);
         setTotalIncome(allIncomeItems.reduce((sum: number, el: MoneyItem): number => sum + el.price, 0))
     }, [allIncomeItems]);
 
     useEffect(() => {
-        // let temp: number = 0;
-        // for (let i = 0; i < allExpenseItems.length; i++) {
-        //     temp += allExpenseItems[i].price;
-        // }
-        // setTotalExpense(temp);
         setTotalExpense(allExpenseItems.reduce((sum: number, el: MoneyItem): number => sum + el.price, 0))
     }, [allExpenseItems]);
 
@@ -59,6 +50,7 @@ function App() {
 
     return (
         <div className="App">
+            <h1 className="title">Simple budget planning</h1>
             <IncomeTotal totalIncome={totalIncome}/>
             <IncomeForm addIncome={addIncome}/>
             <IncomeList allIncomeItems={allIncomeItems} deleteIncome={deleteIncome}/>
@@ -66,6 +58,8 @@ function App() {
             <ExpenseTotal totalExpense={totalExpense}/>
             <ExpenseForm addExpense={addExpense}/>
             <ExpenseList allExpenseItems={allExpenseItems} deleteExpense={deleteExpense}/>
+
+            <BudgetTotal budget={totalBudget}/>
         </div>
     );
 }

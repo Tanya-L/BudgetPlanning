@@ -1,4 +1,4 @@
-import React, {FormEvent, useRef, useState} from 'react';
+import React, {FormEvent, useRef} from 'react';
 import {MoneyItem} from "../MoneyItem";
 
 interface ExpenseFormProps {
@@ -31,14 +31,14 @@ function ExpenseForm({addExpense}: ExpenseFormProps) {
     }
 
     return (
-        <form className="expense-form" onSubmit={AddExpense}>
+        <form className="form" onSubmit={AddExpense}>
             <div className="form-inner">
-                <input type="text" name="desc" id="desc" placeholder="Expense Description..."
+                <input type="text" name="desc" id="desc" placeholder="Expense Description"
                        ref={descInputbox}/>
-                <input type="number" name="price" id="price" placeholder="Price..."
+                <input type="number" name="price" id="price" placeholder="Price"
                        ref={priceInputbox}/>
-                <input type="date" name="date" id="date" placeholder="Expense date..."
-                       value="date" ref={dateInputbox}/>
+                <input type="date" name="date" id="date" placeholder="Expense date"
+                       ref={dateInputbox}/>
 
                 <input type="submit" value="Add Expense"/>
             </div>
