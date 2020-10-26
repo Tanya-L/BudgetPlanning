@@ -1,6 +1,10 @@
 import React from 'react';
 
-function Expenses({totalExpense}) {
+interface ExpensesProps {
+    totalExpense: number
+}
+
+function ExpenseTotal({totalExpense}: ExpensesProps) {
     return (
         <header>
             <h1>Expense Tracker</h1>
@@ -9,4 +13,4 @@ function Expenses({totalExpense}) {
     );
 }
 
-export default Expenses;
+export default ExpenseTotal;
