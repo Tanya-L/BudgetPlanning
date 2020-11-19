@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import IncomeItem from "./IncomeItem";
 import {MoneyItem} from "../MoneyItem";
+import {GlobalContext} from "../context/GlobalState";
 
-interface IncomeListProps {
-    allIncomeItems: MoneyItem[];
-    deleteIncome: (index: number) => void;
-}
+// interface IncomeListProps {
+//     allIncomeItems: MoneyItem[];
+//     deleteIncome: (index: number) => void;
+// }
 
-function IncomeList({allIncomeItems, deleteIncome}: IncomeListProps) {
+function IncomeList() {
+    const {incomes} = useContext(GlobalContext)
+
     const sortByDate = (a: MoneyItem, b: MoneyItem) => {
         return a.date > b.date ? 1 : (a.date < b.date ? -1 : 0);
     }
@@ -15,14 +18,13 @@ function IncomeList({allIncomeItems, deleteIncome}: IncomeListProps) {
     return (
         <div className="list">
             {
-                allIncomeItems
+                incomes
                     .sort(sortByDate)
                     .map((value, index) => (
                         <IncomeItem
                             key={index}
                             income={value}
                             index={index}
-                            deleteIncome={deleteIncome}
                         />
                     ))
             }

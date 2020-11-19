@@ -1,24 +1,28 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {MoneyItem} from "../MoneyItem";
+import {GlobalContext} from "../context/GlobalState";
 
 interface IncomeItemsProps {
     income: MoneyItem;
     index: number;
-    deleteIncome: (i: any) => any
 }
 
-function IncomeItem({income, index, deleteIncome}: IncomeItemsProps) {
+function IncomeItem({income, index}: IncomeItemsProps) {
+    const {deleteIncome} = useContext(GlobalContext)
+
     let day = income.date.getDate();
     let month = income.date.getMonth() + 1;
     let year = income.date.getFullYear();
 
-    const onRemoveClick = (i: number) => {
-        deleteIncome(i);
+    const onRemoveClick = (i: string) => {
+        if (deleteIncome) {
+            deleteIncome(i);
+        }
     }
 
     return (
         <div className="item">
-            <button className="remove-item" onClick={() => onRemoveClick(index)}>x</button>
+            <button className="remove-item" onClick={() => onRemoveClick(income.id)}>x</button>
             <div className="desc">{income.description}</div>
             <div className="price">${income.price}</div>
             <div className="date">{day + "/" + month + "/" + year}</div>

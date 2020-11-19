@@ -1,11 +1,28 @@
-import React, {FormEvent, useRef} from 'react';
-import {MoneyItem} from "../MoneyItem";
+import React, {FormEvent, useRef, useContext} from 'react';
+import {createUniqueId, MoneyItem} from "../MoneyItem";
+import styled from "styled-components";
+import {GlobalContext} from "../context/GlobalState";
 
-interface ExpenseFormProps {
-    addExpense: (m: MoneyItem) => any;
-}
 
-function ExpenseForm({addExpense}: ExpenseFormProps) {
+// interface ExpenseFormProps {
+//     addExpense: (m: MoneyItem) => any;
+// }
+
+const Button = styled.button`
+    margin: 1em;
+    padding: 0.25em 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: green;
+    background-size: 200%;
+    color: black;
+    font-weight: 600;
+    text-transform: uppercase;
+`;
+
+function ExpenseForm() {
+    const {addExpense} = useContext(GlobalContext)
+
     const descInputbox = useRef<HTMLInputElement>(null);
     const dateInputbox = useRef<HTMLInputElement>(null);
     const priceInputbox = useRef<HTMLInputElement>(null);
@@ -19,11 +36,14 @@ function ExpenseForm({addExpense}: ExpenseFormProps) {
         let d = (dateInputbox.current as any).value.split("-");
         let newD = new Date(d[0], d[1] - 1, d[2]);
 
-        addExpense({
-            description: (descInputbox.current as any).value,
-            price: parseFloat((priceInputbox.current as any).value),
-            date: newD
-        });
+        if (addExpense) {
+            addExpense({
+                id: createUniqueId(),
+                description: (descInputbox.current as any).value,
+                price: parseFloat((priceInputbox.current as any).value),
+                date: newD
+            });
+        }
 
         (descInputbox.current as any).value = "";
         (priceInputbox.current as any).value = null;
@@ -40,7 +60,7 @@ function ExpenseForm({addExpense}: ExpenseFormProps) {
                 <input type="date" name="date" id="date" placeholder="Expense date"
                        ref={dateInputbox}/>
 
-                <input type="submit" value="Add Expense"/>
+                <Button type="submit" value="Add Expense">Add Expense</Button>
             </div>
         </form>
     )

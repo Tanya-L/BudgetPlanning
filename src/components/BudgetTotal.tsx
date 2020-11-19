@@ -1,15 +1,32 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import styled from "styled-components";
+import {GlobalContext} from "../context/GlobalState";
+import {MoneyItem} from "../MoneyItem";
 
-interface BudgetProps {
-    budget: number
-}
+const BudgetStyle = styled.section`
+    padding: 2em;
+    font-size: 22px;
+    }
+    `;
 
-function BudgetTotal({budget}: BudgetProps) {
+function BudgetTotal() {
+    const {incomes, expenses} = useContext(GlobalContext)
+
+    const totalIncome = incomes
+        .reduce(
+            (sum: number, el: MoneyItem): number => sum + el.price,
+            0)
+    const totalExpense = expenses
+        .reduce(
+            (sum: number, el: MoneyItem): number => sum + el.price,
+            0)
+    const budget = totalIncome - totalExpense
+
     return (
-        <header>
+        <BudgetStyle>
             <h1>Total Budget</h1>
             <div className="total">${budget}</div>
-        </header>
+        </BudgetStyle>
     );
 }
 

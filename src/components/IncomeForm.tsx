@@ -1,11 +1,27 @@
-import React, {FormEvent, useRef} from 'react';
-import {MoneyItem} from "../MoneyItem";
+import React, {FormEvent, useContext, useRef} from 'react';
+import {createUniqueId, MoneyItem} from "../MoneyItem";
+import styled from "styled-components";
+import {GlobalContext} from "../context/GlobalState";
 
-interface IncomeFormProps {
-    addIncome: (m: MoneyItem) => any;
-}
+// interface IncomeFormProps {
+//     addIncome: (m: MoneyItem) => any;
+// }
 
-function IncomeForm({addIncome}: IncomeFormProps) {
+const Button = styled.button`
+    margin: 1em;
+    padding: 0.25em 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: green;
+    background-size: 200%;
+    color: black;
+    font-weight: 600;
+    text-transform: uppercase;
+`;
+
+function IncomeForm() {
+    const {addIncome} = useContext(GlobalContext)
+
     const descInputbox = useRef<HTMLInputElement>(null);
     const dateInputbox = useRef<HTMLInputElement>(null);
     const priceInputbox = useRef<HTMLInputElement>(null);
@@ -19,11 +35,14 @@ function IncomeForm({addIncome}: IncomeFormProps) {
         let d = (dateInputbox.current as any).value.split("-");
         let newD = new Date(d[0], d[1] - 1, d[2]);
 
-        addIncome({
-            description: (descInputbox.current as any).value,
-            price: parseFloat((priceInputbox.current as any).value),
-            date: newD
-        });
+        if (addIncome) {
+            addIncome({
+                id: createUniqueId(),
+                description: (descInputbox.current as any).value,
+                price: parseFloat((priceInputbox.current as any).value),
+                date: newD
+            });
+        }
 
         (descInputbox.current as any).value = "";
         (priceInputbox.current as any).value = null;
@@ -40,7 +59,7 @@ function IncomeForm({addIncome}: IncomeFormProps) {
                 <input type="date" name="date" id="date" placeholder="Income date"
                        ref={dateInputbox}/>
 
-                <input type="submit" value="Add Income"/>
+                <Button type="submit" value="Add Income">Add Income</Button>
             </div>
         </form>
     )
