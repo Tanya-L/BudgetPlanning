@@ -13,7 +13,7 @@ function IncomeTotal() {
     return (
         <header>
             <h1>Income </h1>
-            <div className="total">${totalIncome}</div>
+            <div className="total">{totalIncome} SEK</div>
         </header>
     );
 }

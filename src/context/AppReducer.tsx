@@ -3,7 +3,7 @@ import {MoneyItem} from "../MoneyItem";
 
 interface AppReducerAction {
     payload: string | MoneyItem,
-    type: "ADD_INCOME" | "DELETE_INCOME" | "ADD_EXPENSE" | "DELETE_EXPENSE"
+    type: "ADD_INCOME" | "DELETE_INCOME" | "ADD_EXPENSE" | "DELETE_EXPENSE" | "SET_EXCHANGE_RATES"
 }
 
 export default function myExpenseAppReducer(state: BooksState, action: any) {
@@ -31,6 +31,11 @@ export default function myExpenseAppReducer(state: BooksState, action: any) {
             return {
                 ...state,
                 expenses: [action.payload, ...state.expenses]
+            }
+        case  'SET_EXCHANGE_RATES':
+            return {
+                ...state,
+                exchangeRates: action.payload
             }
         default:
             return state;

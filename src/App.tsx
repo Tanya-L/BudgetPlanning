@@ -6,54 +6,51 @@ import IncomeList from "./components/IncomeList";
 import ExpenseTotal from "./components/ExpenseTotal";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
-import {MoneyItem} from "./MoneyItem";
 import BudgetTotal from "./components/BudgetTotal";
-import styled from "styled-components";
 import {GlobalProvider} from "./context/GlobalState";
+import Currency from "./components/Currency";
+import styled from "styled-components";
+import {CurrencyExchangeMap} from "./context/BooksState";
 
 
-// const GlobalStyle = createGlobalStyle`
-//    html, body {
-//     margin: 0;
-//     padding: 0;
-//     }
-//   body {
-//     background-color: #cccccc;
-//     font-family: sans-serif;
-//     font=size: 16px;
-//     }
-//     `;
-
-const Wripper = styled.section`
+export const WrapperStyle: any = styled.section`
     padding: 1em;
     background: white;
     }
     `;
 
-function App() {
+export const API_URL = "https://api.exchangeratesapi.io/latest?base=SEK";
 
-    // const [allIncomeItems, setAllIncomeItems] = useState<MoneyItem[]>([]);
-    // const [allExpenseItems, setAllExpenseItems] = useState<MoneyItem[]>([]);
-    // const [totalIncome, setTotalIncome] = useState<number>(0);
-    // const [totalExpense, setTotalExpense] = useState<number>(0);
-    // const [totalBudget, setTotalBudget] = useState<number>(0);
-    //
-    // useEffect(() => {
-    //     setTotalIncome(allIncomeItems.reduce((sum: number, el: MoneyItem): number => sum + el.price, 0))
-    // }, [allIncomeItems]);
-    //
-    // useEffect(() => {
-    //     setTotalExpense(allExpenseItems.reduce((sum: number, el: MoneyItem): number => sum + el.price, 0))
-    // }, [allExpenseItems]);
-    //
-    // useEffect(() => {
-    //         setTotalBudget(totalIncome - totalExpense);
-    //     },
-    //     [totalIncome, totalExpense]);
+interface ApiResponse {
+    rates: CurrencyExchangeMap,
+    base: string,
+    date: string,
+}
+
+function App() {
+    const [exchangeRates, setExchangeRates] = useState<object | string>("no data")
+
+    useEffect(() => {
+        loadDataFromServer()
+
+        function loadDataFromServer() {
+            fetch(API_URL)
+                .then(res => res.json())
+                .then(
+                    (data: ApiResponse) => {
+                        setExchangeRates(data.rates);
+                    },
+                    (error: any) => {
+                        console.log(error)
+                        setExchangeRates("error")
+                    }
+                );
+        }
+    }, [])
 
     return (
-        <GlobalProvider>
-            <Wripper>
+        <GlobalProvider exchangeRates={exchangeRates}>
+            <WrapperStyle>
                 <div className="App">
                     <h1 className="title">Simple budget planning</h1>
                     <IncomeTotal/>
@@ -66,7 +63,7 @@ function App() {
 
                     <BudgetTotal/>
                 </div>
-            </Wripper>
+            </WrapperStyle>
         </GlobalProvider>
     );
 }

@@ -2,6 +2,8 @@ import React, {useContext} from 'react';
 import styled from "styled-components";
 import {GlobalContext} from "../context/GlobalState";
 import {MoneyItem} from "../MoneyItem";
+import Currency from "./Currency";
+import {API_URL} from "../App";
 
 const BudgetStyle = styled.section`
     padding: 2em;
@@ -25,7 +27,10 @@ function BudgetTotal() {
     return (
         <BudgetStyle>
             <h1>Total Budget</h1>
-            <div className="total">${budget}</div>
+            <div className="total">{budget} SEK
+            <Currency url={API_URL} currency="USD" sek={budget} />
+            <Currency url={API_URL} currency="EUR" sek={budget} />
+            </div>
         </BudgetStyle>
     );
 }

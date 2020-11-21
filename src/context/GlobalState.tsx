@@ -6,7 +6,8 @@ import {MoneyItem} from "../MoneyItem";
 // Initial state
 const initialState: BooksState = {
     expenses: [],
-    incomes: []
+    incomes: [],
+    exchangeRates: "no data"
 }
 
 // Create context
@@ -14,8 +15,11 @@ export const GlobalContext = createContext<BooksState>(initialState);
 
 // Provider component
 // @ts-ignore
-export const GlobalProvider = ({children}) => {
-    const [{expenses, incomes}, dispatch] = useReducer(myExpenseAppReducer, initialState);
+export const GlobalProvider = ({children, exchangeRates}) => {
+    const [
+        {expenses, incomes},
+        dispatch
+    ] = useReducer(myExpenseAppReducer, initialState);
 
     // Actions
     function deleteIncome(id: string) {
@@ -48,11 +52,14 @@ export const GlobalProvider = ({children}) => {
 
     return (<GlobalContext.Provider value={{
         expenses,
+        deleteExpense,
+        addExpense,
+
         incomes,
         deleteIncome,
         addIncome,
-        deleteExpense,
-        addExpense,
+
+        exchangeRates
     }}>
         {children}
     </GlobalContext.Provider>);

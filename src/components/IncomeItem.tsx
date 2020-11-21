@@ -24,7 +24,7 @@ function IncomeItem({income, index}: IncomeItemsProps) {
         <div className="item">
             <button className="remove-item" onClick={() => onRemoveClick(income.id)}>x</button>
             <div className="desc">{income.description}</div>
-            <div className="price">${income.price}</div>
+            <div className="price">{income.price} SEK</div>
             <div className="date">{day + "/" + month + "/" + year}</div>
         </div>
     )

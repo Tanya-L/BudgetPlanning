@@ -14,7 +14,7 @@ function ExpenseTotal() {
     return (
         <header>
             <h1>Expense </h1>
-            <div className="total">${totalExpense}</div>
+            <div className="total">{totalExpense} SEK</div>
         </header>
     );
 }

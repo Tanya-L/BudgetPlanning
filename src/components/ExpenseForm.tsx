@@ -53,7 +53,7 @@ function ExpenseForm() {
     return (
         <form className="form" onSubmit={AddExpense}>
             <div className="form-inner">
-                <input type="text" name="desc" id="desc" placeholder="Expense Description"
+                <input type="text" name="desc" id="desc" placeholder="Expense Description in SEK"
                        ref={descInputbox}/>
                 <input type="number" name="price" id="price" placeholder="Price"
                        ref={priceInputbox}/>

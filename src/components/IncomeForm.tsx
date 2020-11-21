@@ -52,7 +52,7 @@ function IncomeForm() {
     return (
         <form className="form" onSubmit={AddIncome}>
             <div className="form-inner">
-                <input type="text" name="desc" id="desc" placeholder="Income Description"
+                <input type="text" name="desc" id="desc" placeholder="Income Description in SEK"
                        ref={descInputbox}/>
                 <input type="number" name="price" id="price" placeholder="Price"
                        ref={priceInputbox}/>

@@ -24,7 +24,7 @@ function ExpenseItem({expense, index}: ExpenseItemsProps) {
         <div className="item">
             <button className="remove-item" onClick={() => onRemoveClick(expense.id)}>x</button>
             <div className="desc">{expense.description}</div>
-            <div className="price">${expense.price}</div>
+            <div className="price">{expense.price} SEK</div>
             <div className="date">{day + "/" + month + "/" + year}</div>
         </div>
     )
