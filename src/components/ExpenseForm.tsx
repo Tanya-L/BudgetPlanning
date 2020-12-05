@@ -1,5 +1,5 @@
-import React, {FormEvent, useRef, useContext} from 'react';
-import {createUniqueId, MoneyItem} from "../MoneyItem";
+import React, {FormEvent, useContext, useRef} from 'react';
+import {createUniqueId} from "../MoneyItem";
 import styled from "styled-components";
 import {GlobalContext} from "../context/GlobalState";
 
@@ -53,11 +53,14 @@ function ExpenseForm() {
     return (
         <form className="form" onSubmit={AddExpense}>
             <div className="form-inner">
-                <input type="text" name="desc" id="desc" placeholder="Expense Description in SEK"
+                <input type="text" name="desc" id="desc"
+                       placeholder="Expense Description in SEK"
                        ref={descInputbox}/>
                 <input type="number" name="price" id="price" placeholder="Price"
                        ref={priceInputbox}/>
-                <input type="date" name="date" id="date" placeholder="Expense date"
+                <input type="date" name="date" id="date"
+                       placeholder="Expense date"
+                       role="date-input"
                        ref={dateInputbox}/>
 
                 <Button type="submit" value="Add Expense">Add Expense</Button>
