@@ -20,7 +20,7 @@ test("Value is deleted when X is clicked", async () => {
     renderWithProvider(<ExpenseItem expense={testExpense} index={1}/>, props);
 
     const buttonX = await screen.findByRole("button")
-    act(() => {
+    await act(() => {
         fireEvent.click(buttonX)
     })
     expect(myDeleteExpense).toBeCalled();

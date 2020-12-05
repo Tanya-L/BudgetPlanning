@@ -1,11 +1,7 @@
 import React, {FormEvent, useContext, useRef} from 'react';
-import {createUniqueId, MoneyItem} from "../MoneyItem";
+import {createUniqueId} from "../MoneyItem";
 import styled from "styled-components";
 import {GlobalContext} from "../context/GlobalState";
-
-// interface IncomeFormProps {
-//     addIncome: (m: MoneyItem) => any;
-// }
 
 const Button = styled.button`
     margin: 1em;
