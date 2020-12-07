@@ -25,7 +25,7 @@ export default function Currency(props: CurrencyProps) {
         return "?"
     }
 
-    return (<div>
+    return (<div role="currency">
         {isError ? "Exchange rates loading error!" :
             (isLoading ? <LoadingIcon/> : value())
         }
