@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './App.css';
 import IncomeTotal from './components/IncomeTotal'
 import IncomeForm from "./components/IncomeForm";
@@ -8,7 +8,6 @@ import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import BudgetTotal from "./components/BudgetTotal";
 import {GlobalProvider} from "./context/GlobalState";
-import Currency from "./components/Currency";
 import styled from "styled-components";
 import {CurrencyExchangeMap} from "./context/BooksState";
 
@@ -29,24 +28,32 @@ interface ApiResponse {
 
 function App() {
     const [exchangeRates, setExchangeRates] = useState<object | string>("no data")
+    const [currentTime30, setCurrentTime30] = useState<number>(0)
+
+    function loadDataFromServer(_t: number) {
+        fetch(API_URL)
+            .then(res => res.json())
+            .then(
+                (data: ApiResponse) => {
+                    setExchangeRates(data.rates);
+                },
+                (error: any) => {
+                    console.log(error)
+                    setExchangeRates("error")
+                }
+            );
+    }
 
     useEffect(() => {
-        loadDataFromServer()
-
-        function loadDataFromServer() {
-            fetch(API_URL)
-                .then(res => res.json())
-                .then(
-                    (data: ApiResponse) => {
-                        setExchangeRates(data.rates);
-                    },
-                    (error: any) => {
-                        console.log(error)
-                        setExchangeRates("error")
-                    }
-                );
-        }
+        const id = setInterval(() => {
+            // This should increase by 1 every 30 minutes (1800 sec)
+            let roundedTime = Math.round(new Date().getTime() / (1800 * 1000));
+            setCurrentTime30(roundedTime);
+        }, 3000);
+        return () => clearInterval(id);
     }, [])
+    // This should be called every 30 minutes
+    useMemo(() => loadDataFromServer(currentTime30), [currentTime30]);
 
     return (
         <GlobalProvider exchangeRates={exchangeRates}>
